@@ -17,52 +17,10 @@ currently being supported with security updates.
 
 In chat2.php reflected XSS is possible.
 This because chatdisplay.php returns unsanitized or unencoded user input.
-The project is not maintained, but there are people who use this.
+I see the project is not maintained anymore, but there are people who use this.
+For the prove of concept or support please contact me
 
-Please update the code:
-Original code 
-```
-<script>
-    function displaychat() 
-    {
-    
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() 
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                document.getElementById("chats").innerHTML = this.responseText;
-            }
-        }
-        xmlhttp.open("GET", "chatdisplay.php", true);
-        xmlhttp.send();
-    }
-   setInterval(displaychat,100);
-</script>
-```
 
-Could be 
-```
-<script>
-    function displaychat() 
-    {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() 
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                document.getElementById("chats").textContent = this.responseText;
-            }
-        }
-        xmlhttp.open("GET", "chatdisplay.php", true);
-        xmlhttp.send();
-    }
-    setInterval(displaychat, 100);
-</script>
 
-<div id="chats"></div>
-
-```
-By using textContent, any HTML or JavaScript in the response will be displayed as text rather than executed. However, ensure that the server-side code sanitizes and validates user input to prevent any XSS attack vectors.
 
 
